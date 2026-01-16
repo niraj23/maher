@@ -16,6 +16,8 @@ CREATE TABLE IF NOT EXISTS products (
   sale_date DATE,
   sold_at TEXT,
   product_url TEXT,
+  size TEXT,
+  color TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -30,3 +32,7 @@ INSERT INTO stores (name) VALUES ('The Real Real') ON CONFLICT (name) DO NOTHING
 
 -- Migration: Add product_url column if it doesn't exist
 ALTER TABLE products ADD COLUMN IF NOT EXISTS product_url TEXT;
+
+-- Migration: Add size and color columns if they don't exist
+ALTER TABLE products ADD COLUMN IF NOT EXISTS size TEXT;
+ALTER TABLE products ADD COLUMN IF NOT EXISTS color TEXT;

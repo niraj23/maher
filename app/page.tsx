@@ -261,18 +261,20 @@ export default function Dashboard() {
                 </svg>
                 Products
               </h2>
-              <button
-                onClick={() => {
-                  setEditingProduct(null);
-                  setShowProductForm(true);
-                }}
-                className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl hover:from-indigo-500 hover:to-purple-500 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 font-semibold"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                </svg>
-                Add Product
-              </button>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => {
+                    setEditingProduct(null);
+                    setShowProductForm(true);
+                  }}
+                  className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl hover:from-indigo-500 hover:to-purple-500 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 font-semibold"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                  </svg>
+                  Add Product
+                </button>
+              </div>
             </div>
 
             {showProductForm && (

@@ -2,7 +2,6 @@
 
 import { ProductWithStore } from '@/types';
 import { format } from 'date-fns';
-import { getProductUrl } from '@/lib/urls';
 import { useState, useMemo, useEffect } from 'react';
 
 interface ProductListProps {
@@ -164,27 +163,36 @@ export default function ProductList({ products, onEdit, onDelete }: ProductListP
           <tbody className="bg-slate-800 divide-y divide-slate-700">
             {paginatedProducts.map((product) => {
               const profit = calculateProfit(product);
-              const productUrl = getProductUrl(product);
               return (
                 <tr key={product.id} className="hover:bg-slate-700/50 transition-colors">
                   <td className="px-6 py-4">
                     <div className="flex items-start gap-2">
                       <div className="w-2 h-2 bg-indigo-500 rounded-full mt-1.5 flex-shrink-0"></div>
-                      {productUrl ? (
-                        <a
-                          href={productUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-sm font-semibold text-indigo-400 hover:text-indigo-300 hover:underline transition-colors flex items-center gap-1 break-words"
-                        >
-                          <span className="break-words">{product.name}</span>
-                          <svg className="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                          </svg>
-                        </a>
-                      ) : (
+                      <div className="flex-1 min-w-0">
                         <div className="text-sm font-semibold text-slate-100 break-words">{product.name}</div>
-                      )}
+                        {(product.size || product.color) && (
+                          <div className="text-xs mt-2 flex flex-wrap gap-3">
+                            {product.size && (
+                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-indigo-900/40 border border-indigo-700/50 rounded-md text-indigo-200">
+                                <svg className="w-4 h-4 text-indigo-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                                </svg>
+                                <span className="text-indigo-300 font-semibold">Size:</span>
+                                <span className="font-medium">{product.size}</span>
+                              </span>
+                            )}
+                            {product.color && (
+                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-purple-900/40 border border-purple-700/50 rounded-md text-purple-200">
+                                <svg className="w-4 h-4 text-purple-400 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                                  <circle cx="12" cy="12" r="10" />
+                                </svg>
+                                <span className="text-purple-300 font-semibold">Color:</span>
+                                <span className="font-medium">{product.color}</span>
+                              </span>
+                            )}
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -205,7 +213,10 @@ export default function ProductList({ products, onEdit, onDelete }: ProductListP
                           ${product.purchase_price.toFixed(2)}
                         </div>
                         <div className="text-xs text-slate-300">
-                          {format(new Date(product.purchase_date), 'MMM d, yyyy')}
+                          {(() => {
+                            const [year, month, day] = product.purchase_date.split('-').map(Number);
+                            return format(new Date(year, month - 1, day), 'MMM d, yyyy');
+                          })()}
                         </div>
                       </div>
                     </div>
@@ -221,7 +232,10 @@ export default function ProductList({ products, onEdit, onDelete }: ProductListP
                             ${product.sale_price.toFixed(2)}
                           </div>
                           <div className="text-xs text-slate-200">
-                            {product.sale_date ? format(new Date(product.sale_date), 'MMM d, yyyy') : ''}
+                            {product.sale_date ? (() => {
+                              const [year, month, day] = product.sale_date.split('-').map(Number);
+                              return format(new Date(year, month - 1, day), 'MMM d, yyyy');
+                            })() : ''}
                           </div>
                         </div>
                       </div>

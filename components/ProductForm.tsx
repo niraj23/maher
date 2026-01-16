@@ -19,7 +19,8 @@ export default function ProductForm({ product, stores, onSave, onCancel }: Produ
     sale_price: '',
     sale_date: '',
     sold_at: '',
-    product_url: '',
+    size: '',
+    color: '',
   });
 
   useEffect(() => {
@@ -32,7 +33,8 @@ export default function ProductForm({ product, stores, onSave, onCancel }: Produ
         sale_price: product.sale_price?.toString() || '',
         sale_date: product.sale_date?.split('T')[0] || '',
         sold_at: product.sold_at || '',
-        product_url: product.product_url || '',
+        size: product.size || '',
+        color: product.color || '',
       });
     }
   }, [product]);
@@ -47,7 +49,9 @@ export default function ProductForm({ product, stores, onSave, onCancel }: Produ
       sale_price: formData.sale_price ? parseFloat(formData.sale_price) : null,
       sale_date: formData.sale_date || null,
       sold_at: formData.sold_at || null,
-      product_url: formData.product_url.trim() || null,
+      product_url: null,
+      size: formData.size.trim() || null,
+      color: formData.color.trim() || null,
     });
   };
 
@@ -164,21 +168,38 @@ export default function ProductForm({ product, stores, onSave, onCancel }: Produ
         </div>
       </div>
 
-      <div>
-        <label className="block text-sm font-semibold text-slate-200 mb-2 flex items-center gap-2">
-          <svg className="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-          </svg>
-          Product URL
-        </label>
-        <input
-          type="url"
-          value={formData.product_url}
-          onChange={(e) => setFormData({ ...formData, product_url: e.target.value })}
-          placeholder="https://www.therealreal.com/products/..."
-          className="w-full px-4 py-3 bg-slate-700/50 border-2 border-slate-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none text-slate-100 placeholder-slate-500"
-        />
-        <p className="text-xs text-slate-400 mt-1">Optional: Direct link to the product page</p>
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-semibold text-slate-200 mb-2 flex items-center gap-2">
+            <svg className="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+            </svg>
+            Size
+          </label>
+          <input
+            type="text"
+            value={formData.size}
+            onChange={(e) => setFormData({ ...formData, size: e.target.value })}
+            placeholder="e.g., 12, M, L"
+            className="w-full px-4 py-3 bg-slate-700/50 border-2 border-slate-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none text-slate-100 placeholder-slate-500"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-semibold text-slate-200 mb-2 flex items-center gap-2">
+            <svg className="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+            </svg>
+            Color
+          </label>
+          <input
+            type="text"
+            value={formData.color}
+            onChange={(e) => setFormData({ ...formData, color: e.target.value })}
+            placeholder="e.g., Black, Grey"
+            className="w-full px-4 py-3 bg-slate-700/50 border-2 border-slate-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none text-slate-100 placeholder-slate-500"
+          />
+        </div>
       </div>
 
       <div>

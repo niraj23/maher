@@ -14,6 +14,8 @@ export interface Product {
   sale_date: string | null;
   sold_at: string | null; // where it was sold (e.g., "eBay", "Poshmark", etc.)
   product_url: string | null; // direct link to the product page
+  size: string | null;
+  color: string | null;
   created_at: string;
   updated_at: string;
 }

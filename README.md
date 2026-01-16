@@ -65,9 +65,6 @@ Default login password: `admin` (change this in production!)
 
 ## Deployment
 
-See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions to Netlify.
-
-Quick summary:
 1. Set up Supabase database (run `supabase-schema.sql`)
 2. Push code to GitHub
 3. Deploy to Netlify (connect GitHub repo)
