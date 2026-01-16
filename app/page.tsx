@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { ProductWithStore, Store, ProfitStats, TimeRangeStats, ProductProfitability } from '@/types';
 import { startOfWeek, startOfYear, endOfWeek, endOfYear } from 'date-fns';
-import ProductForm from '@/components/ProductForm';
+import ProductModal from '@/components/ProductModal';
 import ProductList from '@/components/ProductList';
 import Analytics from '@/components/Analytics';
 import StoreManager from '@/components/StoreManager';
@@ -277,20 +277,6 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {showProductForm && (
-              <div className="bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-700 mb-6">
-                <ProductForm
-                  product={editingProduct || undefined}
-                  stores={stores}
-                  onSave={handleSaveProduct}
-                  onCancel={() => {
-                    setShowProductForm(false);
-                    setEditingProduct(null);
-                  }}
-                />
-              </div>
-            )}
-
             <div className="bg-slate-800 rounded-2xl shadow-lg border border-slate-700 overflow-hidden">
               <ProductList
                 products={products}
@@ -322,6 +308,18 @@ export default function Dashboard() {
           />
         )}
       </div>
+
+      {/* Product Modal */}
+      <ProductModal
+        isOpen={showProductForm}
+        product={editingProduct || undefined}
+        stores={stores}
+        onSave={handleSaveProduct}
+        onClose={() => {
+          setShowProductForm(false);
+          setEditingProduct(null);
+        }}
+      />
     </div>
   );
 }

@@ -79,9 +79,9 @@ export default function ProductList({ products, onEdit, onDelete }: ProductListP
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
                 >
-                  <svg className="w-5 h-5 text-slate-400 hover:text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-slate-400 hover:text-slate-200 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
@@ -91,36 +91,36 @@ export default function ProductList({ products, onEdit, onDelete }: ProductListP
 
           {/* Filter Buttons */}
           <div className="flex gap-2">
-            <button
-              onClick={() => setFilterSold('all')}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                filterSold === 'all'
-                  ? 'bg-indigo-600 text-white'
-                  : 'bg-slate-700/50 text-slate-300 hover:bg-slate-700'
-              }`}
-            >
-              All
-            </button>
-            <button
-              onClick={() => setFilterSold('sold')}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                filterSold === 'sold'
-                  ? 'bg-emerald-600 text-white'
-                  : 'bg-slate-700/50 text-slate-300 hover:bg-slate-700'
-              }`}
-            >
-              Sold
-            </button>
-            <button
-              onClick={() => setFilterSold('unsold')}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                filterSold === 'unsold'
-                  ? 'bg-amber-600 text-white'
-                  : 'bg-slate-700/50 text-slate-300 hover:bg-slate-700'
-              }`}
-            >
-              Unsold
-            </button>
+              <button
+                onClick={() => setFilterSold('all')}
+                className={`px-4 py-2 rounded-lg font-medium transition-all cursor-pointer ${
+                  filterSold === 'all'
+                    ? 'bg-indigo-600 text-white'
+                    : 'bg-slate-700/50 text-slate-300 hover:bg-slate-700'
+                }`}
+              >
+                All
+              </button>
+              <button
+                onClick={() => setFilterSold('sold')}
+                className={`px-4 py-2 rounded-lg font-medium transition-all cursor-pointer ${
+                  filterSold === 'sold'
+                    ? 'bg-emerald-600 text-white'
+                    : 'bg-slate-700/50 text-slate-300 hover:bg-slate-700'
+                }`}
+              >
+                Sold
+              </button>
+              <button
+                onClick={() => setFilterSold('unsold')}
+                className={`px-4 py-2 rounded-lg font-medium transition-all cursor-pointer ${
+                  filterSold === 'unsold'
+                    ? 'bg-amber-600 text-white'
+                    : 'bg-slate-700/50 text-slate-300 hover:bg-slate-700'
+                }`}
+              >
+                Unsold
+              </button>
           </div>
         </div>
 
@@ -164,7 +164,7 @@ export default function ProductList({ products, onEdit, onDelete }: ProductListP
             {paginatedProducts.map((product) => {
               const profit = calculateProfit(product);
               return (
-                <tr key={product.id} className="hover:bg-slate-700/50 transition-colors">
+                <tr key={product.id} className="hover:bg-slate-700/50 transition-colors cursor-default">
                   <td className="px-6 py-4">
                     <div className="flex items-start gap-2">
                       <div className="w-2 h-2 bg-indigo-500 rounded-full mt-1.5 flex-shrink-0"></div>
@@ -273,7 +273,7 @@ export default function ProductList({ products, onEdit, onDelete }: ProductListP
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => onEdit(product)}
-                        className="p-2 text-indigo-400 hover:bg-indigo-900/30 rounded-lg transition-colors"
+                        className="p-2 text-indigo-400 hover:bg-indigo-900/30 rounded-lg transition-all cursor-pointer hover:scale-110 active:scale-95"
                         title="Edit"
                       >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -286,7 +286,7 @@ export default function ProductList({ products, onEdit, onDelete }: ProductListP
                             onDelete(product.id);
                           }
                         }}
-                        className="p-2 text-red-400 hover:bg-red-900/30 rounded-lg transition-colors"
+                        className="p-2 text-red-400 hover:bg-red-900/30 rounded-lg transition-all cursor-pointer hover:scale-110 active:scale-95"
                         title="Delete"
                       >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -328,10 +328,10 @@ export default function ProductList({ products, onEdit, onDelete }: ProductListP
               <button
                 onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
                 disabled={currentPage === 1}
-                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                className={`px-4 py-2 rounded-lg font-medium transition-all ${
                   currentPage === 1
                     ? 'bg-slate-700/30 text-slate-500 cursor-not-allowed'
-                    : 'bg-slate-700/50 text-slate-300 hover:bg-slate-700'
+                    : 'bg-slate-700/50 text-slate-300 hover:bg-slate-700 cursor-pointer'
                 }`}
               >
                 Previous
@@ -350,7 +350,7 @@ export default function ProductList({ products, onEdit, onDelete }: ProductListP
                       <button
                         key={page}
                         onClick={() => setCurrentPage(page)}
-                        className={`min-w-[2.5rem] px-3 py-2 rounded-lg font-medium transition-colors ${
+                        className={`min-w-[2.5rem] px-3 py-2 rounded-lg font-medium transition-all cursor-pointer ${
                           currentPage === page
                             ? 'bg-indigo-600 text-white'
                             : 'bg-slate-700/50 text-slate-300 hover:bg-slate-700'
@@ -376,10 +376,10 @@ export default function ProductList({ products, onEdit, onDelete }: ProductListP
               <button
                 onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
                 disabled={currentPage === totalPages}
-                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                className={`px-4 py-2 rounded-lg font-medium transition-all ${
                   currentPage === totalPages
                     ? 'bg-slate-700/30 text-slate-500 cursor-not-allowed'
-                    : 'bg-slate-700/50 text-slate-300 hover:bg-slate-700'
+                    : 'bg-slate-700/50 text-slate-300 hover:bg-slate-700 cursor-pointer'
                 }`}
               >
                 Next

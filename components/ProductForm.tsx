@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Product, Store } from '@/types';
+import { Product, ProductWithStore, Store } from '@/types';
 
 interface ProductFormProps {
-  product?: Product;
+  product?: Product | ProductWithStore;
   stores: Store[];
   onSave: (product: Omit<Product, 'id' | 'created_at' | 'updated_at'>) => Promise<void>;
   onCancel: () => void;
