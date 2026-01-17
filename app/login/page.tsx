@@ -47,7 +47,7 @@ export default function LoginPage() {
             </svg>
           </div>
           <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent mb-2">
-            Product Tracker
+            The Colour of Zack
           </h1>
           <p className="text-slate-400 text-sm">Track your purchases and sales</p>
         </div>

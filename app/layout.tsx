@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Product Tracker",
+  title: "The Colour of Zack",
   description: "Track your product purchases and sales",
 };
 

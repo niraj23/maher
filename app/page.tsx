@@ -189,7 +189,7 @@ export default function Dashboard() {
                 </svg>
               </div>
               <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-                Product Tracker
+                The Colour of Zack
               </h1>
             </div>
             <button

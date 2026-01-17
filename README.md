@@ -1,4 +1,4 @@
-# Product Tracker
+# The Colour of Zack
 
 A Next.js application to track product purchases and sales, calculate profits, and analyze performance across different stores.
 
