@@ -3,6 +3,7 @@
 import { ProductWithStore } from '@/types';
 import { format } from 'date-fns';
 import { useState, useMemo, useEffect } from 'react';
+import ConfirmModal from './ConfirmModal';
 
 interface ProductListProps {
   products: ProductWithStore[];
@@ -15,6 +16,11 @@ export default function ProductList({ products, onEdit, onDelete }: ProductListP
   const [filterSold, setFilterSold] = useState<'all' | 'sold' | 'unsold'>('all');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
+  const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; productId: string | null; productName: string }>({
+    isOpen: false,
+    productId: null,
+    productName: '',
+  });
 
   const calculateProfit = (product: ProductWithStore) => {
     if (!product.sale_price) return null;
@@ -282,9 +288,11 @@ export default function ProductList({ products, onEdit, onDelete }: ProductListP
                       </button>
                       <button
                         onClick={() => {
-                          if (confirm('Are you sure you want to delete this product?')) {
-                            onDelete(product.id);
-                          }
+                          setDeleteConfirm({
+                            isOpen: true,
+                            productId: product.id,
+                            productName: product.name,
+                          });
                         }}
                         className="p-2 text-red-400 hover:bg-red-900/30 rounded-lg transition-all cursor-pointer hover:scale-110 active:scale-95"
                         title="Delete"
@@ -388,6 +396,25 @@ export default function ProductList({ products, onEdit, onDelete }: ProductListP
           </div>
         </div>
       )}
+
+      {/* Delete Confirmation Modal */}
+      <ConfirmModal
+        isOpen={deleteConfirm.isOpen}
+        title="Delete Product"
+        message={`Are you sure you want to delete "${deleteConfirm.productName}"? This action cannot be undone.`}
+        confirmText="Delete"
+        cancelText="Cancel"
+        variant="danger"
+        onConfirm={() => {
+          if (deleteConfirm.productId) {
+            onDelete(deleteConfirm.productId);
+          }
+          setDeleteConfirm({ isOpen: false, productId: null, productName: '' });
+        }}
+        onCancel={() => {
+          setDeleteConfirm({ isOpen: false, productId: null, productName: '' });
+        }}
+      />
     </div>
   );
 }
